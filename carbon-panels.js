@@ -54,8 +54,8 @@
 
     const gasKWh = gasTherm.map(t => t * FACTORS.therm_to_kWh);
 
-    const elecCO2 = elecKWh.map(kwh => (kwh/1000) * FACTORS.elec_lbs_per_MWh); // lbs
-    const gasCO2  = gasTherm.map(t => t * FACTORS.gas_lbs_per_therm);          // lbs
+    const elecCO2 = elecKWh.map(kwh => (kwh/1000) * FACTORS.elec_lbs_per_MWh);
+    const gasCO2  = gasTherm.map(t => t * FACTORS.gas_lbs_per_therm);         
     const totalCO2Monthly = elecCO2.map((v,i)=> v + gasCO2[i]);
 
     const totalElecKWh = sum(elecKWh);
@@ -137,7 +137,6 @@
     </div>
   `).join("")}</div>`;
 
-  // State + charts
   const stateByYear = {};
   const chartByYear = {};
 
@@ -181,8 +180,6 @@
 
   function renderMetrics(year, computed){
     const st = stateByYear[year];
-
-    // Selected month CO2 (month mode only)
     let selectedMonthCO2 = null;
     let selectedMonthLabel = "Tap a month";
     if (st.mode === "month" && st.selectedMonth != null) {
@@ -307,7 +304,6 @@
     renderMetrics(year, d);
   }
 
-  // events
   years.forEach((year) => {
     const blockEl = mount.querySelector(`.cfYearBlock[data-year="${year}"]`);
 

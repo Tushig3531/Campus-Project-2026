@@ -1,8 +1,6 @@
-// collegeapartments.js
-
 const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-const LBS_PER_KWH = 920.1 / 1000; // 0.9201 lbs CO2 per kWh
-const LBS_PER_THERM = 11.68;      // lbs CO2 per therm
+const LBS_PER_KWH = 920.1 / 1000; 
+const LBS_PER_THERM = 11.68;      
 
 const lbsFromKwh = (kwh) => Math.round(kwh * LBS_PER_KWH);
 const lbsFromTherms = (t) => Math.round(t * LBS_PER_THERM);
@@ -34,19 +32,15 @@ const DATA = {
   gasAnnual: { 2024: 1442, 2025: 1605 }
 };
 
-// ---- state ----
+
 let selectedDoor = "104";
-let compareMode = "month"; // "month" | "year"
+let compareMode = "month"; 
 let selectedMonthIndex = 0;
 let compareDoors = new Set(["House","101","102","104","Total"]);
-
-// ---- charts ----
 let electricityDoorChart;
 let monthlyCompareChart;
 let yearCompareChart;
 let ngChart;
-
-// ---- helpers ----
 const fmt = (n) => new Intl.NumberFormat().format(n);
 
 function doorLabel(door){
@@ -170,7 +164,6 @@ function buildGasCO2Table(year, tableId){
 }
 
 
-// ---- charts creation ----
 function makeLineChart(ctx, labels, data2024, data2025){
   return new Chart(ctx, {
     type: "line",
@@ -243,7 +236,6 @@ function makeBarCompareChart(ctx, labels, data2024, data2025, yTitle){
   });
 }
 
-// ---- chart updates ----
 function updateDoorHint(){
   const hint = document.getElementById("selectedDoorHint");
   hint.textContent = `Selected: ${doorLabel(selectedDoor)}`;
@@ -284,7 +276,6 @@ function updateYearCompareChart(){
 }
 
 function updateNgChart(){
-  // month mode: show selected month therms
   const m = selectedMonthIndex;
   const v2024 = DATA.gas[2024][m];
   const v2025 = DATA.gas[2025][m];
@@ -309,11 +300,8 @@ function applyCompareMode(){
   const yearCol  = document.getElementById("yearCol");
 
   if (compareMode === "month") {
-    // show month only
     monthCol.style.display = "block";
     yearCol.style.display  = "none";
-
-    // IMPORTANT: make month span full grid width (fills empty space)
     monthCol.style.gridColumn = "1 / -1";
     yearCol.style.gridColumn  = "auto";
 
@@ -329,11 +317,8 @@ function applyCompareMode(){
     });
 
   } else {
-    // show year only
     monthCol.style.display = "none";
     yearCol.style.display  = "block";
-
-    // IMPORTANT: make year span full grid width (fills empty space)
     yearCol.style.gridColumn  = "1 / -1";
     monthCol.style.gridColumn = "auto";
 
@@ -348,7 +333,6 @@ function applyCompareMode(){
 
 
 
-// ---- UI wiring ----
 function initDoorPills(){
   const pills = document.getElementById("doorPills");
   pills.querySelectorAll(".aptPill").forEach(btn => {
@@ -367,12 +351,8 @@ function initCompareDoorPills(){
   pills.querySelectorAll(".aptPill").forEach(btn => {
     btn.addEventListener("click", () => {
       const d = btn.dataset.door;
-
-      // toggle
       if (compareDoors.has(d)) compareDoors.delete(d);
       else compareDoors.add(d);
-
-      // ensure at least one selected
       if (compareDoors.size === 0){
         compareDoors.add(d);
       }
@@ -393,8 +373,6 @@ function initModeSeg(){
       seg.querySelectorAll("button").forEach(b => b.classList.remove("isActive"));
       btn.classList.add("isActive");
       applyCompareMode();
-
-      // when switching to year, no need month updates; when month, refresh
       if (compareMode === "month"){
         updateMonthlyCompareChart();
         updateNgChart();
@@ -410,8 +388,6 @@ function initFloorplanClicks(){
     zone.addEventListener("click", () => {
       const unit = zone.dataset.unit;
       selectedDoor = unit;
-
-      // sync pills
       const pills = document.getElementById("doorPills");
       pills.querySelectorAll(".aptPill").forEach(b => {
         b.classList.toggle("isActive", b.dataset.door === unit);
@@ -423,14 +399,13 @@ function initFloorplanClicks(){
   });
 }
 
-// ---- boot ----
 document.addEventListener("DOMContentLoaded", () => {
   if (typeof Chart === "undefined"){
     alert("Chart.js did not load. Make sure you are connected to the internet or include Chart.js locally.");
     return;
   }
 
-  // tables in Carbon section
+
 buildElecCO2Table(2024, "tblElec2024");
 buildElecCO2Table(2025, "tblElec2025");
 buildGasCO2Table(2024, "tblGas2024");
@@ -445,7 +420,6 @@ buildGasCO2Table(2025, "tblGas2025");
   initFloorplanClicks();
   updateDoorHint();
 
-  // charts
   electricityDoorChart = makeLineChart(
     document.getElementById("electricityDoorChart"),
     MONTHS,
@@ -494,7 +468,6 @@ buildGasCO2Table(2025, "tblGas2025");
 
   applyCompareMode();
 
-  // ===== Screenshot lightbox (zoom + pan) =====
 const lightbox = document.getElementById("imgLightbox");
 const sheetThumb = document.getElementById("sheetThumb");
 const openShot = document.getElementById("openShot");
@@ -507,8 +480,8 @@ const btnReset = document.getElementById("zoomReset");
 const btnClose = document.getElementById("imgClose");
 
 let scale = 0.9;
-let tx = 0;   // translate X
-let ty = 0;   // translate Y
+let tx = 0;   
+let ty = 0;   
 let isPanning = false;
 let startX = 0;
 let startY = 0;
@@ -548,7 +521,6 @@ openShot?.addEventListener("click", openLightbox);
 btnClose?.addEventListener("click", closeLightbox);
 
 lightbox?.addEventListener("click", (e) => {
-  // click outside stage closes
   if (e.target === lightbox) closeLightbox();
 });
 
@@ -556,13 +528,13 @@ btnIn?.addEventListener("click", () => zoom(0.12));
 btnOut?.addEventListener("click", () => zoom(-0.12));
 btnReset?.addEventListener("click", () => { scale = 1; tx = 0; ty = 0; applyTransform(); });
 
-// wheel zoom
+
 stage?.addEventListener("wheel", (e) => {
   e.preventDefault();
   zoom(e.deltaY < 0 ? 0.06 : -0.06);
 }, { passive: false });
 
-// drag to pan
+
 stage?.addEventListener("mousedown", (e) => {
   isPanning = true;
   startX = e.clientX - tx;
@@ -578,7 +550,7 @@ window.addEventListener("mousemove", (e) => {
 
 window.addEventListener("mouseup", () => { isPanning = false; });
 
-// ESC closes
+
 window.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && lightbox?.classList.contains("isOpen")) closeLightbox();
 });

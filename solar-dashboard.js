@@ -26,16 +26,15 @@
     months: "bar",
   };
 
-  // For “easy to see” (avoid unreadable x-axis)
+  
   const DEFAULT_VIEW_POINTS = {
-    minutes: 720, // last 12h
-    hours:   168, // last 7d
-    days:     90, // last 90d
-    weeks:    52, // last 52w
-    months:   36, // last 36m
+    minutes: 720, 
+    hours:   168, 
+    days:     90, 
+    weeks:    52, 
+    months:   36, 
   };
 
-  // ---------- UI ----------
   root.innerHTML = `
     <div class="solarUI">
       <aside class="solarSide" id="solarSide"></aside>
@@ -79,7 +78,6 @@
   const selectedTitle = root.querySelector("#selectedTitle");
   const selectedArea = root.querySelector("#selectedArea");
 
-  // Build left buttons
   RES_KEYS.forEach((k) => {
     const btn = document.createElement("button");
     btn.dataset.res = k;
@@ -88,13 +86,12 @@
     sideEl.appendChild(btn);
   });
 
-  // ---------- Parse ----------
+
   function parseTwoDigitYear(yy) {
     return (yy <= 69) ? (2000 + yy) : (1900 + yy);
   }
 
   function parseTimestamp(str) {
-    // "01:58:00 1/25/26"
     const s = String(str || "").trim();
     const parts = s.split(/\s+/);
     if (parts.length < 2) return null;
@@ -138,7 +135,7 @@
     return pts;
   }
 
-  // Nice labels per resolution
+  
   const fmt = {
     minutes: new Intl.DateTimeFormat(undefined, { month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit" }),
     hours:   new Intl.DateTimeFormat(undefined, { month:"2-digit", day:"2-digit", hour:"2-digit" }),
@@ -153,8 +150,7 @@
 
   function kwh(n) { return Math.round(n).toLocaleString(); }
 
-  // ---------- Data load ----------
-  const cache = {};   // resKey -> { pts, total, avg, peak, start, end }
+  const cache = {};   
   async function fetchText(url) {
     const res = await fetch(url, { cache: "no-store" });
     if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
@@ -185,7 +181,6 @@
     await Promise.all(jobs);
   }
 
-  // ---------- Summary + Selected detail ----------
   function renderSummary(activeKey) {
     const rows = RES_KEYS
       .filter(k => map[k] && cache[k])
@@ -227,7 +222,6 @@
       ? `${viewPts[0].dt.toLocaleString()} → ${viewPts.at(-1).dt.toLocaleString()}`
       : "—";
 
-    // show last N points for the selected view
     const showN = (resKey === "months") ? 12 : (resKey === "weeks") ? 12 : 10;
     const last = viewPts.slice(-showN);
 
@@ -256,7 +250,6 @@
     `;
   }
 
-  // ---------- Chart ----------
   let chart;
 
   function setActiveResButton(resKey) {
@@ -312,10 +305,9 @@
     });
   }
 
-  // ---------- State ----------
   const state = {
     resKey: "months",
-    chartType: "auto" // auto chooses based on resKey; user can override to line/bar
+    chartType: "auto"
   };
 
   async function update() {
@@ -337,28 +329,24 @@
     statusEl.textContent = `Loaded ${d.pts.length.toLocaleString()} points • Showing ${viewPts.length.toLocaleString()} • Total: ${kwh(d.total)} kWh`;
   }
 
-  // Resolution click
+  
   sideEl.addEventListener("click", async (e) => {
     const btn = e.target.closest("button[data-res]");
     if (!btn || btn.disabled) return;
-
     state.resKey = btn.dataset.res;
-    // keep auto unless user explicitly chose a type
     await update();
   });
 
-  // Chart type toggle click
   root.querySelector(".solarSeg").addEventListener("click", async (e) => {
     const btn = e.target.closest("button[data-type]");
     if (!btn) return;
 
-    state.chartType = btn.dataset.type; // "line" or "bar" (manual override)
+    state.chartType = btn.dataset.type; 
     await update();
   });
 
-  // Boot: preload everything so Summary totals are filled
+  
   (async function init() {
-    // pick first available if months not present
     if (!map[state.resKey]) {
       const first = RES_KEYS.find(k => map[k]);
       if (first) state.resKey = first;

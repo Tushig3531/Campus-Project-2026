@@ -1,16 +1,6 @@
-/* solar-compare.js
-   Column-only comparison chart
-   - Select Year
-   - Toggle Month / Year
-   Data columns per line:
-   produced  month  year  consumed
-*/
-
 (function () {
   const mount = document.getElementById("solar-compare");
   if (!mount) return;
-
-  // ===== Paste/keep your dataset here =====
   const RAW = `
 170	1	2017		462
 180	2	2017		497
@@ -121,8 +111,6 @@
 325	11	2025		557
 211	12	2025		592
 `.trim();
-
-  // Parse into {year -> {month -> {p,c}}}
   const byYear = new Map();
 
   RAW.split(/\r?\n/).forEach(line => {
@@ -176,7 +164,6 @@
   const summaryEl = mount.querySelector("#cmpSummary");
   const canvas = mount.querySelector("#cmpChart");
 
-  // Build year buttons
   years.forEach(y => {
     const b = document.createElement("button");
     b.className = "compareYearBtn";
@@ -185,10 +172,9 @@
     yearGrid.appendChild(b);
   });
 
-  // State
   const state = {
     year: years.at(-1) || 2025,
-    mode: "month" // month | year
+    mode: "month" 
   };
 
   let chart;
@@ -321,8 +307,6 @@
     draw();
   });
 
-  // Boot
-  // default year = latest
   const lastBtn = yearGrid.querySelector(`.compareYearBtn[data-year="${state.year}"]`);
   lastBtn?.classList.add("isActive");
   draw();

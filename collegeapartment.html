@@ -25,17 +25,11 @@
   </nav>
 
   <main class="container">
-
-    <!-- =========================
-         OVERVIEW (Floorplan + Door + Electricity Chart)
-    ========================== -->
     <section id="overview" class="block">
       <h2>Overview</h2>
       <p>Click a unit on the floor plan to select it. Use the Door selector to view House and Total too.</p>
 
       <div class="aptStack">
-
-        <!-- Floor plan -->
         <div class="floorplan-card">
           <div class="floorplan-wrap" aria-label="College apartment floor plan">
             <img
@@ -43,8 +37,6 @@
               src="images/apartment-layout1.png"
               alt="College apartment floor plan"
             />
-
-            <!-- clickable overlays (only units on the floorplan) -->
             <button type="button" class="zone zone-104" data-unit="104" aria-label="Unit 104"></button>
             <button type="button" class="zone zone-102" data-unit="102" aria-label="Unit 102"></button>
             <button type="button" class="zone zone-101" data-unit="101" aria-label="Unit 101"></button>
@@ -59,7 +51,7 @@
           </div>
         </div>
 
-        <!-- Door selector -->
+        
         <div class="aptCard">
           <div class="aptCardHead">
             <div class="aptCardTitle">Door</div>
@@ -75,7 +67,7 @@
           </div>
         </div>
 
-        <!-- Electricity Usage Chart -->
+        
         <div class="aptCard">
           <div class="aptCardHead">
             <div class="aptCardTitle">Electricity Usage Chart (kWh)</div>
@@ -90,9 +82,6 @@
     </section>
 
 
-    <!-- =========================
-         COMPARE (Month/Year toggle + charts + Natural Gas)
-    ========================== -->
     <section id="compare" class="block">
       <h2>Compare</h2>
       <p>Choose which doors to compare, then switch Month/Year.</p>
@@ -120,14 +109,13 @@
 
       <div class="aptCompareGrid" id="compareGrid">
 
-        <!-- MONTH MODE column -->
+        
         <div class="aptMonthCol" id="monthCol">
 
           <div class="aptMonthlyRow">
-            <!-- month buttons -->
+            
             <div class="aptMonthButtons" id="monthButtons" aria-label="Month buttons"></div>
-
-            <!-- monthly compare chart -->
+          
             <div class="aptCard">
               <div class="aptCardHead">
                 <div class="aptCardTitle">Monthly Electricity Usage Comparing Chart (kWh)</div>
@@ -139,7 +127,7 @@
             </div>
           </div>
 
-          <!-- Natural gas under comparing (month-based) -->
+          
           <div class="aptCard">
             <div class="aptCardHead">
               <div class="aptCardTitle">Natural Gas Consumption (therms)</div>
@@ -152,7 +140,7 @@
 
         </div>
 
-        <!-- YEAR chart column -->
+        
         <div class="aptYearCol" id="yearCol">
           <div class="aptCard">
             <div class="aptCardHead">
@@ -164,7 +152,7 @@
             </div>
           </div>
 
-          <!-- Natural gas under comparing (year-based) -->
+          
           <div class="aptCard" id="ngYearCard">
             <div class="aptCardHead">
               <div class="aptCardTitle">Natural Gas Consumption (Annual therms)</div>
@@ -178,16 +166,14 @@
     </section>
 
 
-    <!-- =========================
-         CARBON FOOTPRINT (Separated 2024 / 2025)
-    ========================== -->
+
     <section id="carbon" class="block">
       <h2>Carbon Footprint</h2>
       <p>Summary from your sheet (electricity rate 920.1 lbsCO₂/MWh, natural gas 11.68 lbsCO₂/therm).</p>
 
       <div class="aptYearGrid">
 
-  <!-- ===== 2024 card ===== -->
+  
   <div class="aptCard">
     <div class="aptCardHead">
       <div class="aptCardTitle">2024</div>
@@ -225,7 +211,7 @@
   </div>
 
 
-  <!-- ===== 2025 card ===== -->
+  
   <div class="aptCard">
     <div class="aptCardHead">
       <div class="aptCardTitle">2025</div>
@@ -282,7 +268,7 @@
         />
       </div>
 
-      <!-- Lightbox -->
+      
       <div class="imgLightbox" id="imgLightbox" aria-hidden="true">
         <div class="imgLightboxTop">
           <div class="imgLightboxTitle">Carbon Footprint — Data Sheet</div>
@@ -313,7 +299,7 @@
 
   </main>
 
-  <!-- Charts -->
+  
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script defer src="collegeapartments.js"></script>
 </body>

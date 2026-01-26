@@ -25,9 +25,6 @@ body{
     var(--paper);
 }
 
-/* =========================
-   LANDING (INDEX)
-   ========================= */
 .split{
   min-height: 100vh;
   display: grid;
@@ -43,17 +40,19 @@ body{
   overflow: hidden;
 }
 
-/* photo */
 .tile::before{
   content:"";
   position:absolute;
   inset:0;
-  background: var(--img) center / cover no-repeat;
+  background-image: var(--img);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   transform: scale(1.02);
   transition: transform .7s ease;
 }
 
-/* soft overlay (always on, stronger on hover) */
+
 .tile::after{
   content:"";
   position:absolute;
@@ -63,7 +62,6 @@ body{
   transition: opacity .25s ease;
 }
 
-/* label */
 .tile-label{
   position:absolute;
   left: 18px;
@@ -93,7 +91,7 @@ body{
   color: rgba(15, 27, 20, .70);
 }
 
-/* hover + focus */
+
 .tile:hover::before{ transform: scale(1.08); }
 .tile:hover::after{ opacity: .95; }
 
@@ -102,7 +100,6 @@ body{
   outline-offset: -3px;
 }
 
-/* center badge */
 .center-badge{
   position:absolute;
   inset:0;
@@ -135,7 +132,6 @@ body{
   color: var(--muted);
 }
 
-/* divider */
 .divider{
   position:absolute;
   top: 10%;
@@ -149,9 +145,6 @@ body{
   pointer-events:none;
 }
 
-/* =========================
-   SUBPAGES
-   ========================= */
 html{ scroll-behavior: smooth; }
 
 .hero{
@@ -231,7 +224,6 @@ html{ scroll-behavior: smooth; }
   border-color: rgba(0,0,0,.16);
 }
 
-/* Home button color */
 .home-btn{
   color: #fff !important;
   background: linear-gradient(135deg, #1F8E55, #1C8FB1) !important;
@@ -288,14 +280,12 @@ html{ scroll-behavior: smooth; }
   border-color: rgba(59,130,246,.22);
 }
 
-/* mobile */
 @media (max-width: 860px){
   .split{ grid-template-columns: 1fr; }
   .divider{ display:none; }
   .badge{ width: min(92vw, 520px); }
 }
 
-/* reduced motion */
 @media (prefers-reduced-motion: reduce){
   html{ scroll-behavior: auto; }
   .tile::before{ transition: none; }
@@ -303,7 +293,6 @@ html{ scroll-behavior: smooth; }
 }
 
 
-/* ---- Solar totals overview ---- */
 .solarOverview{
   display:grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -344,7 +333,6 @@ html{ scroll-behavior: smooth; }
   color: rgba(15,27,20,.65);
 }
 
-/* range row */
 .solarRange{
   display:flex;
   align-items:center;
@@ -363,7 +351,6 @@ html{ scroll-behavior: smooth; }
   .solarOverview{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
-/* ===== Solar layout (matches your sketch) ===== */
 .solarUI{
   display:grid;
   grid-template-columns: 170px 1fr;
@@ -540,10 +527,10 @@ html{ scroll-behavior: smooth; }
   }
   .detailGrid{ grid-template-columns: 1fr; }
 }
-/* ===== Mobile polish for Solar UI ===== */
+
 @media (max-width: 720px){
 
-  /* overall: single column */
+  
   .solarUI{
     grid-template-columns: 1fr;
     grid-template-areas:
@@ -553,16 +540,16 @@ html{ scroll-behavior: smooth; }
     gap: 12px;
   }
 
-  /* resolution buttons become a horizontal tab bar */
+  
   .solarSide{
     flex-direction: row;
     gap: 10px;
     overflow-x: auto;
     padding-bottom: 4px;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;          /* firefox */
+    scrollbar-width: none;         
   }
-  .solarSide::-webkit-scrollbar{ display:none; } /* chrome/safari */
+  .solarSide::-webkit-scrollbar{ display:none; } 
 
   .solarSide button{
     min-width: 120px;
@@ -571,18 +558,18 @@ html{ scroll-behavior: smooth; }
     white-space: nowrap;
   }
 
-  /* main card tighter */
+  
   .solarMain{
     padding: 12px;
     border-radius: 18px;
   }
 
-  /* header: status on its own line if needed */
+  
   .solarHeader{
     gap: 8px;
   }
 
-  /* graph/column toggle stays easy to tap */
+  
   .solarSeg{
     width: 100%;
     justify-content: center;
@@ -593,14 +580,14 @@ html{ scroll-behavior: smooth; }
     font-size: 14px;
   }
 
-  /* chart bigger and readable */
+  
   .solarChartWrap{
-    min-height: 320px;  /* good for phones */
+    min-height: 320px;  
     padding: 10px;
     border-radius: 16px;
   }
 
-  /* detail section stacks nicely */
+  
   .solarDetail{
     padding: 12px;
     border-radius: 18px;
@@ -615,28 +602,28 @@ html{ scroll-behavior: smooth; }
     border-radius: 16px;
   }
 
-  /* tables: allow horizontal scroll instead of squishing */
+  
   .detailBlock{
     overflow-x: auto;
   }
   .detailTable{
-    min-width: 520px; /* prevents cramped columns */
+    min-width: 520px; 
   }
 
-  /* last points list: bigger tap/reading */
+
   .miniRow{
     padding: 10px 12px;
     border-radius: 14px;
   }
 }
 
-/* Extra-small phones */
+
 @media (max-width: 380px){
   .solarSide button{ min-width: 108px; }
   .solarChartWrap{ min-height: 300px; }
   .solarSeg button{ padding: 11px 12px; }
 }
-/* ===== Solar comparison (Year + Month/Year toggle) ===== */
+
 .compareUI{
   display:grid;
   grid-template-columns: 220px 1fr;
@@ -763,7 +750,6 @@ html{ scroll-behavior: smooth; }
   font-weight: 900;
 }
 
-/* Mobile: year list becomes horizontal scroll */
 @media (max-width: 820px){
   .compareUI{ grid-template-columns: 1fr; }
   .compareYearGrid{
@@ -782,11 +768,6 @@ html{ scroll-behavior: smooth; }
 }
 
 
-
-
-
-
-/* ===== Carbon Panels (2024 + 2025) ===== */
 .cfWrap{ display:grid; gap: 16px; margin-top: 12px; }
 
 .cfYearHeader{
@@ -959,7 +940,7 @@ html{ scroll-behavior: smooth; }
   color: rgba(15,27,20,.70);
 }
 
-/* Mobile */
+
 @media (max-width: 920px){
   .cfGrid{ grid-template-columns: 1fr; }
   .cfMetrics{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -967,7 +948,7 @@ html{ scroll-behavior: smooth; }
   .cfSeg{ width: 100%; }
   .cfSeg button{ flex:1; padding: 12px 14px; }
 }
-/* ===== Carbon panels: aesthetic polish + better toggle layout ===== */
+
 
 .cfYearHeader{
   border: 1px solid var(--stroke);
@@ -982,14 +963,14 @@ html{ scroll-behavior: smooth; }
   box-shadow: 0 14px 36px rgba(0,0,0,.08);
 }
 
-/* Titles */
+
 .cfCardTitle,
 .cfTitleRight{
   letter-spacing: .2px;
   color: rgba(15,27,20,.82);
 }
 
-/* New row under title */
+
 .cfSubControls{
   display:flex;
   align-items:center;
@@ -1009,7 +990,7 @@ html{ scroll-behavior: smooth; }
   border: 1px solid rgba(0,0,0,.06);
 }
 
-/* Segmented controls (pills) */
+
 .cfSeg{
   border: 1px solid rgba(0,0,0,.10);
   border-radius: 999px;
@@ -1032,7 +1013,7 @@ html{ scroll-behavior: smooth; }
   background: linear-gradient(135deg, rgba(56,189,113,.18), rgba(59,130,246,.18));
 }
 
-/* Usage table: easier on eyes */
+
 .cfUsageTableWrap{
   border: 1px solid rgba(0,0,0,.08);
   background: rgba(255,255,255,.92);
@@ -1052,14 +1033,14 @@ html{ scroll-behavior: smooth; }
   background: rgba(15,27,20,.03);
 }
 
-/* Totals + metrics cards: soften */
+
 .cfTotalCard,
 .cfMetric{
   border: 1px solid rgba(0,0,0,.10);
   background: rgba(255,255,255,.92);
 }
 
-/* Mobile: keep controls readable */
+
 @media (max-width: 920px){
   .cfSubControls{
     gap: 8px;
@@ -1073,9 +1054,7 @@ html{ scroll-behavior: smooth; }
     padding: 12px 14px;
   }
 }
-/* ===== Carbon panels tweaks you asked for ===== */
 
-/* year header + solar toggle under it */
 .cfYearHeader{
   font-size: 20px;
   padding: 12px 14px;
@@ -1112,7 +1091,7 @@ html{ scroll-behavior: smooth; }
   background: linear-gradient(135deg, rgba(56,189,113,.18), rgba(59,130,246,.18));
 }
 
-/* make Carbon title row cleaner */
+
 .cfHeadRow{
   margin-bottom: 8px;
 }
@@ -1122,7 +1101,7 @@ html{ scroll-behavior: smooth; }
   letter-spacing: .2px;
 }
 
-/* metrics: better layout */
+
 .cfMetrics{
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
@@ -1148,7 +1127,6 @@ html{ scroll-behavior: smooth; }
   margin-top: 6px;
 }
 
-/* mobile */
 @media (max-width: 920px){
   .cfMetrics{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cfMetricBig{ grid-column: span 2; }
@@ -1162,25 +1140,21 @@ html{ scroll-behavior: smooth; }
   align-items:center;
 }
 
-/* make the toggle only as wide as the buttons */
 .cfYearControls .cfSeg{
   width: fit-content !important;
   flex: 0 0 auto !important;
 }
 
-/* do NOT force each button to be 50% width */
 .cfYearControls .cfSeg button{
   width: auto !important;
   flex: 0 0 auto !important;
   white-space: nowrap;
 }
 
-/* if you still have the Solar label, hide it (optional) */
 .cfYearControls .cfLabel{
   display: none !important;
 }
 
-/* mobile: still keep it compact (no full-width toggle) */
 @media (max-width: 920px){
   .cfYearControls .cfSeg{
     width: fit-content !important;
@@ -1196,24 +1170,6 @@ html{ scroll-behavior: smooth; }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-/* =========================================
-   FLOORPLAN CLICK MAP (College Apartments)
-   Paste this at the VERY BOTTOM of styles.css
-========================================= */
-
-/* Card wrapper */
 .floorplan-card{
   margin-top: 12px;
   padding: 14px;
@@ -1223,7 +1179,6 @@ html{ scroll-behavior: smooth; }
   box-shadow: 0 12px 28px rgba(0,0,0,.08);
 }
 
-/* Image wrap */
 .floorplan-wrap{
   position: relative;
   width: 100%;
@@ -1235,7 +1190,6 @@ html{ scroll-behavior: smooth; }
   background: rgba(255,255,255,.92);
 }
 
-/* Floorplan image */
 .floorplan-img{
   width: 100%;
   height: auto;
@@ -1244,7 +1198,6 @@ html{ scroll-behavior: smooth; }
   z-index: 1;
 }
 
-/* Legend */
 .legend{
   display:flex;
   gap: 14px;
@@ -1269,7 +1222,7 @@ html{ scroll-behavior: smooth; }
 .dot-102{ background: rgba(244,63,94,.85); }
 .dot-101{ background: rgba(59,130,246,.9); }
 
-/* Unit info card */
+
 .unit-info{
   max-width: 980px;
   margin: 0 auto;
@@ -1316,7 +1269,7 @@ html{ scroll-behavior: smooth; }
   color: rgba(15,27,20,.84);
 }
 
-/* Details screenshot */
+
 .data-details{
   max-width: 980px;
   margin: 12px auto 0;
@@ -1337,10 +1290,6 @@ html{ scroll-behavior: smooth; }
   box-shadow: 0 12px 28px rgba(0,0,0,.08);
 }
 
-/* -----------------------------------------
-   CLICKABLE ZONES (aesthetic + label on hover)
------------------------------------------ */
-
 .zone{
   position: absolute;
   z-index: 2;
@@ -1358,7 +1307,6 @@ html{ scroll-behavior: smooth; }
   touch-action: manipulation;
 }
 
-/* glass overlay color */
 .zone::before{
   content:"";
   position:absolute;
@@ -1368,7 +1316,6 @@ html{ scroll-behavior: smooth; }
   transition: filter 180ms ease;
 }
 
-/* label: shows on hover */
 .zone::after{
   content: "Unit " attr(data-unit);
   position:absolute;
@@ -1403,20 +1350,17 @@ html{ scroll-behavior: smooth; }
   transform: translate(-50%, -50%) scale(1);
 }
 
-/* clicked state */
 .zone.is-active{
   opacity: 0.68;
   box-shadow: 0 22px 54px rgba(0,0,0,0.20);
 }
 
-/* keyboard accessibility */
 .zone:focus-visible{
   outline: 3px solid rgba(59,130,246,.55);
   outline-offset: 3px;
   opacity: 0.62;
 }
 
-/* Modern “glass” gradients */
 .zone-104::before{
   background: linear-gradient(135deg,
     rgba(56,189,113,.78),
@@ -1436,18 +1380,9 @@ html{ scroll-behavior: smooth; }
   );
 }
 
-/* Make hover slightly richer per color */
 .zone-104:hover::before{ filter: saturate(1.45) brightness(1.06); }
 .zone-102:hover::before{ filter: saturate(1.35) brightness(1.06); }
 .zone-101:hover::before{ filter: saturate(1.40) brightness(1.06); }
-
-/* -----------------------------------------
-   ZONE POSITIONS (percent-based)
-   Based on your colored image (1067x716).
-   If your image crop differs, tweak these.
------------------------------------------ */
-
-/* 104 (left apartment) */
 .zone-104{
   left: 0.66%;
   top: 1.40%;
@@ -1455,7 +1390,6 @@ html{ scroll-behavior: smooth; }
   height: 98.46%;
 }
 
-/* 102 (top-right) */
 .zone-102{
   left: 54.64%;
   top: 1.26%;
@@ -1463,7 +1397,6 @@ html{ scroll-behavior: smooth; }
   height: 48.60%;
 }
 
-/* 101 (bottom-right) */
 .zone-101{
   left: 54.36%;
   top: 50.28%;
@@ -1471,12 +1404,6 @@ html{ scroll-behavior: smooth; }
   height: 48.32%;
 }
 
-
-
-/* =========================================================
-   College Apartments: Overview + Compare + Floorplan styles
-   Paste at the VERY BOTTOM of styles.css
-========================================================= */
 
 .aptStack{ display:grid; gap:16px; }
 
@@ -1631,7 +1558,6 @@ html{ scroll-behavior: smooth; }
   border-color: rgba(59,130,246,.28);
 }
 
-/* Year mode: hide month column, expand year column */
 .aptCompareGrid.isYearMode{
   grid-template-columns: 1fr;
 }
@@ -1639,7 +1565,6 @@ html{ scroll-behavior: smooth; }
   display:none;
 }
 
-/* Carbon year cards grid */
 .aptYearGrid{
   display:grid;
   grid-template-columns: 1fr 1fr;
@@ -1652,7 +1577,6 @@ html{ scroll-behavior: smooth; }
   .aptMonthlyRow{ grid-template-columns: 1fr; }
 }
 
-/* Metrics */
 .aptMetricsRow{
   display:grid;
   grid-template-columns: repeat(3, minmax(0,1fr));
@@ -1681,7 +1605,6 @@ html{ scroll-behavior: smooth; }
   .aptMetricsRow{ grid-template-columns: repeat(2, minmax(0,1fr)); }
 }
 
-/* Tables */
 .aptDetails{
   margin-top: 12px;
 }
@@ -1727,9 +1650,6 @@ html{ scroll-behavior: smooth; }
   background: rgba(15,27,20,.03);
 }
 
-/* ======================
-   Floorplan click map
-====================== */
 .floorplan-card{
   padding: 14px;
   border-radius: var(--radius);
@@ -1782,7 +1702,7 @@ html{ scroll-behavior: smooth; }
 .dot-house{ background: rgba(234,88,12,.85); }
 .dot-total{ background: rgba(15,27,20,.60); }
 
-/* zones */
+
 .zone{
   position: absolute;
   z-index: 2;
@@ -1844,7 +1764,7 @@ html{ scroll-behavior: smooth; }
   background: linear-gradient(135deg, rgba(96,165,250,.78), rgba(59,130,246,.58));
 }
 
-/* positions (based on your image crop) */
+
 .zone-104{ left: 0.66%; top: 1.40%; width: 42.55%; height: 98.46%; }
 .zone-102{ left: 54.64%; top: 1.26%; width: 43.86%; height: 48.60%; }
 .zone-101{ left: 54.36%; top: 50.28%; width: 44.05%; height: 48.32%; }
@@ -1856,15 +1776,15 @@ html{ scroll-behavior: smooth; }
   grid-template-columns: 1fr;
 }
 
-/* Year mode: hide month column */
+
 .aptCompareGrid.isYearMode #monthCol{ display: none; }
 .aptCompareGrid.isYearMode #yearCol{ display: block; }
 
-/* Month mode: hide year column */
+
 .aptCompareGrid.isMonthMode #yearCol{ display: none; }
 .aptCompareGrid.isMonthMode #monthCol{ display: block; }
 
-/* Carbon details tables: reduce bold */
+
 #carbon .aptDetails summary{
   font-weight: 700;
 }
@@ -1888,7 +1808,6 @@ html{ scroll-behavior: smooth; }
   font-weight: 700;
 }
 
-/* Carbon tables: open as overlay so page doesn't expand */
 #carbon .aptCard { position: relative; overflow: visible; }
 
 #carbon .aptDetails { position: relative; }
@@ -1909,25 +1828,23 @@ html{ scroll-behavior: smooth; }
   max-height: min(520px, 70vh);
   overflow: auto;
 
-  display: none; /* hidden by default */
+  display: none; 
 }
 
 #carbon details[open] .aptDetailsPanel{
-  display: block; /* show when open */
+  display: block; 
 }
 
-/* Optional: slightly less bold */
+
 #carbon .aptDetails summary { font-weight: 700; }
 #carbon .aptTableTitle { font-weight: 700; }
 #carbon .aptTable th { font-weight: 700; }
 #carbon .aptTable td { font-weight: 500; }
-
-/* Carbon: force 2024 + 2025 cards side-by-side */
 #carbon.block{
   display: block !important;
 }
 
-/* Two-column year grid */
+
 #carbon .aptYearGrid{
   display: grid !important;
   grid-template-columns: 1fr 1fr !important;
@@ -1935,27 +1852,24 @@ html{ scroll-behavior: smooth; }
   align-items: start !important;
 }
 
-/* IMPORTANT: prevent cards from spanning both columns */
+
 #carbon .aptYearGrid > .aptCard{
-  grid-column: span 1 !important;   /* <-- this is the key fix */
+  grid-column: span 1 !important;   
   width: 100% !important;
 }
 
-/* Keep the full-sheet screenshot below the two cards (not on the right) */
 #carbon > details.aptDetails{
   display: block !important;
   width: 100% !important;
   margin-top: 12px !important;
 }
 
-/* Only stack on small screens (lower the breakpoint so it won't stack on laptops) */
 @media (max-width: 720px){
   #carbon .aptYearGrid{
     grid-template-columns: 1fr !important;
   }
 }
 
-/* clickable screenshot preview */
 .aptShot{ margin-top: 12px; }
 .aptShotBtn{
   border: 1px solid rgba(0,0,0,.14);
@@ -1973,7 +1887,6 @@ html{ scroll-behavior: smooth; }
   margin-top: 10px;
 }
 
-/* lightbox */
 .imgLightbox{
   position: fixed;
   inset: 0;
@@ -2023,7 +1936,6 @@ html{ scroll-behavior: smooth; }
   background: rgba(15,27,20,.06);
 }
 
-/* stage area */
 .imgStage{
   position: absolute;
   left: 14px;
@@ -2046,12 +1958,10 @@ html{ scroll-behavior: smooth; }
   transform-origin: center center;
   user-select: none;
   -webkit-user-drag: none;
-  max-width: none; /* important for zoom */
+  max-width: none; 
   max-height: none;
 }
-/* ===== Phone scaling fixes (Sustainability House charts) ===== */
 
-/* Let flex/grid children actually shrink (fixes “doesn’t scale” on mobile) */
 .container, .block,
 .solarUI, .solarMain, .solarDetail,
 .compareUI, .compareMain,
@@ -2059,13 +1969,11 @@ html{ scroll-behavior: smooth; }
   min-width: 0;
 }
 
-/* Make dashboard/compare/carbon containers never exceed screen width */
 #solar-dashboard, #solar-compare, #carbon-panels{
   width: 100%;
   max-width: 100%;
 }
 
-/* Chart canvases should never overflow their container */
 #solar-dashboard canvas,
 #solar-compare canvas,
 #carbon-panels canvas{
@@ -2074,42 +1982,32 @@ html{ scroll-behavior: smooth; }
   display: block;
 }
 
-/* On phones: reduce chart heights so they fit */
 @media (max-width: 720px){
   .solarChartWrap,
   .compareChartWrap,
   .cfChartWrap{
     min-height: 280px;
   }
-
-  /* If any injected layout still overflows, allow horizontal scroll instead of breaking layout */
   #solar-dashboard, #solar-compare, #carbon-panels{
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
 }
-/* ===== Sustainability House: Compare scaling fix ===== */
 
-/* Make the compare container shrink properly */
 #solar-compare{ width:100%; max-width:100%; min-width:0; }
 
-/* Grid columns must be shrinkable */
+
 #solar-compare .compareUI{
   width: 100%;
   max-width: 100%;
   min-width: 0;
-
-  /* IMPORTANT: allow the right column to shrink */
   grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
 }
-
-/* Let children actually shrink (default min-width:auto blocks shrinking) */
 #solar-compare .compareSide,
 #solar-compare .compareMain{
   min-width: 0;
 }
 
-/* Prevent chart overflow */
 #solar-compare .compareChartWrap{
   width: 100%;
   max-width: 100%;
@@ -2117,21 +2015,18 @@ html{ scroll-behavior: smooth; }
   position: relative;
 }
 
-/* Force canvas to fill the wrapper */
 #solar-compare .compareChartWrap canvas{
   width: 100% !important;
   height: 100% !important;
   display: block;
 }
 
-/* Stack earlier (your 820px breakpoint might be too small for some phones/tablets) */
 @media (max-width: 980px){
   #solar-compare .compareUI{
     grid-template-columns: 1fr;
   }
 }
 
-/* Phone: make chart height smaller */
 @media (max-width: 720px){
   #solar-compare .compareChartWrap{
     min-height: 280px;
@@ -2145,7 +2040,6 @@ html{ scroll-behavior: smooth; }
     scroll-margin-top: calc(var(--navH) + 32px);
   }
 }
-/* Mobile: give more space in navbar buttons */
 @media (max-width: 720px){
   .navbar{
     height: auto;               
