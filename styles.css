@@ -2102,3 +2102,136 @@ html{ scroll-behavior: smooth; }
 }
 .tile:hover .tile-bg{ transform: scale(1.08); }
 .tile:hover .tile-overlay{ opacity: .95; }
+
+
+
+/* ===== Phone: Sustainability label on top, badge centered, no white borders ===== */
+@media (max-width: 860px){
+
+  /* stack tiles */
+  .split{
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  /* keep Campus Project centered (default) */
+  .center-badge{
+    inset: 0;
+    place-items: center;
+  }
+
+  /* remove white borders (label + badge) */
+  .tile-label{ border: 0 !important; }
+  .badge{ border: 0 !important; }
+
+  
+
+  /* === Move ONLY the first tile label (Sustainability) to the top === */
+  .split > a.tile:first-of-type .tile-label{
+    top: calc(14px + env(safe-area-inset-top));
+    bottom: auto;
+    left: 12px;
+    right: 12px;
+    max-width: none;
+    border-radius: 18px;
+  }
+
+  /* keep second tile label near bottom */
+  .split > a.tile:nth-of-type(2) .tile-label{
+    bottom: calc(14px + env(safe-area-inset-bottom));
+    left: 12px;
+    right: 12px;
+    max-width: none;
+    border-radius: 18px;
+  }
+}
+@media (max-width: 860px){
+  /* stack tiles */
+  .split{
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 12px;
+    padding: 12px;
+    min-height: 100vh;
+  }
+
+  .tile{
+    border-radius: 22px;
+  }
+
+  .tile-bg, .tile-overlay{
+    border-radius: 22px;
+  }
+
+  .tile-overlay{
+    opacity: .85;
+    background: linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,.12));
+  }
+
+  .tile-label{
+    left: 12px;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    max-width: none;
+
+    border-radius: 18px;
+    padding: 12px 14px;
+  }
+
+  .tile-title{ font-size: 16px; }
+  .tile-sub{ font-size: 12px; opacity: .85; }
+
+  .center-badge{
+    inset: auto 0 auto 0;
+    top: calc(10px + env(safe-area-inset-top));
+    place-items: center;
+    z-index: 50;
+  }
+
+  .badge{
+    padding: 10px 14px;
+    border-radius: 14px;
+  }
+
+  .badge-title{ font-size: 18px; }
+  .badge-year{ font-size: 14px; }
+
+
+  .divider{ display:none; }
+}
+
+
+@media (max-width: 420px){
+  .tile-sub{ display:none; }  
+}
+@media (max-width: 860px){
+  .center-badge{
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    z-index: 999;
+    pointer-events: none;
+  }
+  .badge{ margin: 0; }
+}
+@media (max-width: 860px){
+  .split{
+    padding: 0 !important;
+    gap: 0 !important;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+  .tile{
+    border-radius: 0 !important;
+  }
+  .tile-bg,
+  .tile-overlay{
+    border-radius: 0 !important;
+  }
+
+  .tile-label{
+    left: 12px;
+    right: 12px;
+  }
+}
