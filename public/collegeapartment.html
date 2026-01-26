@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>College Apartments</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="hero" style="--hero: url('images/apartment.jpg');">
+    <div class="hero-title">College Apartments</div>
+  </header>
+
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a class="home-btn" href="index.html">← Home</a>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a href="#overview">Overview</a>
+        <a href="#compare">Compare</a>
+        <a href="#carbon">Carbon Footprint</a>
+        <a href="#plan">Plan</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <!-- =========================
+         OVERVIEW (Floorplan + Door + Electricity Chart)
+    ========================== -->
+    <section id="overview" class="block">
+      <h2>Overview</h2>
+      <p>Click a unit on the floor plan to select it. Use the Door selector to view House and Total too.</p>
+
+      <div class="aptStack">
+
+        <!-- Floor plan -->
+        <div class="floorplan-card">
+          <div class="floorplan-wrap" aria-label="College apartment floor plan">
+            <img
+              class="floorplan-img"
+              src="images/apartment-layout1.png"
+              alt="College apartment floor plan"
+            />
+
+            <!-- clickable overlays (only units on the floorplan) -->
+            <button type="button" class="zone zone-104" data-unit="104" aria-label="Unit 104"></button>
+            <button type="button" class="zone zone-102" data-unit="102" aria-label="Unit 102"></button>
+            <button type="button" class="zone zone-101" data-unit="101" aria-label="Unit 101"></button>
+          </div>
+
+          <div class="legend">
+            <span class="dot dot-104"></span> 104
+            <span class="dot dot-102"></span> 102
+            <span class="dot dot-101"></span> 101
+            <span class="dot dot-house"></span> House (not on plan)
+            <span class="dot dot-total"></span> Total
+          </div>
+        </div>
+
+        <!-- Door selector -->
+        <div class="aptCard">
+          <div class="aptCardHead">
+            <div class="aptCardTitle">Door</div>
+            <div class="aptHint" id="selectedDoorHint">Selected: Unit 104</div>
+          </div>
+
+          <div class="aptPills" id="doorPills">
+            <button class="aptPill" data-door="House" type="button">House</button>
+            <button class="aptPill" data-door="101" type="button">101</button>
+            <button class="aptPill" data-door="102" type="button">102</button>
+            <button class="aptPill isActive" data-door="104" type="button">104</button>
+            <button class="aptPill" data-door="Total" type="button">Total</button>
+          </div>
+        </div>
+
+        <!-- Electricity Usage Chart -->
+        <div class="aptCard">
+          <div class="aptCardHead">
+            <div class="aptCardTitle">Electricity Usage Chart (kWh)</div>
+            <div class="aptHint">Shows 2024 vs 2025 monthly usage for the selected door.</div>
+          </div>
+          <div class="aptChartWrap">
+            <canvas id="electricityDoorChart"></canvas>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =========================
+         COMPARE (Month/Year toggle + charts + Natural Gas)
+    ========================== -->
+    <section id="compare" class="block">
+      <h2>Compare</h2>
+      <p>Choose which doors to compare, then switch Month/Year.</p>
+
+      <div class="aptControls">
+        <div class="aptControlGroup">
+          <div class="aptControlLabel">Door Compare</div>
+          <div class="aptPills" id="compareDoorPills">
+            <button class="aptPill isActive" data-door="House" type="button">House</button>
+            <button class="aptPill isActive" data-door="101" type="button">101</button>
+            <button class="aptPill isActive" data-door="102" type="button">102</button>
+            <button class="aptPill isActive" data-door="104" type="button">104</button>
+            <button class="aptPill isActive" data-door="Total" type="button">Total</button>
+          </div>
+        </div>
+
+        <div class="aptControlGroup">
+          <div class="aptControlLabel">Month / Year</div>
+          <div class="aptSeg" id="modeSeg">
+            <button class="isActive" data-mode="month" type="button">Month</button>
+            <button data-mode="year" type="button">Year</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="aptCompareGrid" id="compareGrid">
+
+        <!-- MONTH MODE column -->
+        <div class="aptMonthCol" id="monthCol">
+
+          <div class="aptMonthlyRow">
+            <!-- month buttons -->
+            <div class="aptMonthButtons" id="monthButtons" aria-label="Month buttons"></div>
+
+            <!-- monthly compare chart -->
+            <div class="aptCard">
+              <div class="aptCardHead">
+                <div class="aptCardTitle">Monthly Electricity Usage Comparing Chart (kWh)</div>
+                <div class="aptHint" id="monthTitleHint">Month: Jan</div>
+              </div>
+              <div class="aptChartWrap">
+                <canvas id="monthlyCompareChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Natural gas under comparing (month-based) -->
+          <div class="aptCard">
+            <div class="aptCardHead">
+              <div class="aptCardTitle">Natural Gas Consumption (therms)</div>
+              <div class="aptHint" id="ngHint">Selected Month: Jan</div>
+            </div>
+            <div class="aptChartWrapSm">
+              <canvas id="ngChart"></canvas>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- YEAR chart column -->
+        <div class="aptYearCol" id="yearCol">
+          <div class="aptCard">
+            <div class="aptCardHead">
+              <div class="aptCardTitle">Year Electricity Usage Comparing Chart (kWh)</div>
+              <div class="aptHint">Annual totals, 2024 vs 2025.</div>
+            </div>
+            <div class="aptChartWrap">
+              <canvas id="yearCompareChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Natural gas under comparing (year-based) -->
+          <div class="aptCard" id="ngYearCard">
+            <div class="aptCardHead">
+              <div class="aptCardTitle">Natural Gas Consumption (Annual therms)</div>
+              <div class="aptHint">Used automatically in Year mode.</div>
+            </div>
+            <div class="aptMetricsRow" id="ngYearMetrics"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =========================
+         CARBON FOOTPRINT (Separated 2024 / 2025)
+    ========================== -->
+    <section id="carbon" class="block">
+      <h2>Carbon Footprint</h2>
+      <p>Summary from your sheet (electricity rate 920.1 lbsCO₂/MWh, natural gas 11.68 lbsCO₂/therm).</p>
+
+      <div class="aptYearGrid">
+
+  <!-- ===== 2024 card ===== -->
+  <div class="aptCard">
+    <div class="aptCardHead">
+      <div class="aptCardTitle">2024</div>
+      <div class="aptHint">Electricity + Natural Gas + CO₂</div>
+    </div>
+
+    <div class="aptMetricsRow">
+      <div class="aptMetric"><div class="k">Electricity Total</div><div class="v">7,615 kWh</div></div>
+      <div class="aptMetric"><div class="k">Natural Gas Total</div><div class="v">1,442 therms</div></div>
+      <div class="aptMetric"><div class="k">Total Energy</div><div class="v">49,866 kWh</div></div>
+      <div class="aptMetric"><div class="k">CO₂ (Electric)</div><div class="v">7,007 lbs</div></div>
+      <div class="aptMetric"><div class="k">CO₂ (Gas)</div><div class="v">16,843 lbs</div></div>
+      <div class="aptMetric"><div class="k">CO₂ (Total)</div><div class="v">23,849 lbs</div></div>
+    </div>
+
+    <details class="aptDetails" id="details2024">
+      <summary>Show 2024 monthly tables</summary>
+
+      <div class="aptDetailsPanel">
+        <div class="aptTableWrap">
+          <div class="aptTableTitle">Electricity CO₂ 2024 (lbs)</div>
+          <div class="aptScroll">
+            <table class="aptTable" id="tblElec2024"></table>
+          </div>
+        </div>
+
+        <div class="aptTableWrap">
+          <div class="aptTableTitle">Natural Gas CO₂ 2024 (lbs)</div>
+          <div class="aptScroll">
+            <table class="aptTable" id="tblGas2024"></table>
+          </div>
+        </div>
+      </div>
+    </details>
+  </div>
+
+
+  <!-- ===== 2025 card ===== -->
+  <div class="aptCard">
+    <div class="aptCardHead">
+      <div class="aptCardTitle">2025</div>
+      <div class="aptHint">Electricity + Natural Gas + CO₂</div>
+    </div>
+
+    <div class="aptMetricsRow">
+      <div class="aptMetric"><div class="k">Electricity Total</div><div class="v">9,496 kWh</div></div>
+      <div class="aptMetric"><div class="k">Natural Gas Total</div><div class="v">1,605 therms</div></div>
+      <div class="aptMetric"><div class="k">Total Energy</div><div class="v">56,523 kWh</div></div>
+      <div class="aptMetric"><div class="k">CO₂ (Electric)</div><div class="v">8,737 lbs</div></div>
+      <div class="aptMetric"><div class="k">CO₂ (Gas)</div><div class="v">18,746 lbs</div></div>
+      <div class="aptMetric"><div class="k">CO₂ (Total)</div><div class="v">27,484 lbs</div></div>
+    </div>
+
+    <details class="aptDetails" id="details2025">
+      <summary>Show 2025 monthly tables</summary>
+
+      <div class="aptDetailsPanel">
+        <div class="aptTableWrap">
+          <div class="aptTableTitle">Electricity CO₂ 2025 (lbs)</div>
+          <div class="aptScroll">
+            <table class="aptTable" id="tblElec2025"></table>
+          </div>
+        </div>
+
+        <div class="aptTableWrap">
+          <div class="aptTableTitle">Natural Gas CO₂ 2025 (lbs)</div>
+          <div class="aptScroll">
+            <table class="aptTable" id="tblGas2025"></table>
+          </div>
+        </div>
+      </div>
+    </details>
+  </div>
+
+</div>
+
+
+
+
+      </div>
+
+      <div class="aptShot">
+        <button type="button" class="aptShotBtn" id="openShot">
+          Open full data sheet screenshot
+        </button>
+
+        <img
+          class="data-img data-img-click"
+          id="sheetThumb"
+          src="images/carbon-sheet.png"
+          alt="Carbon footprint spreadsheet screenshot (click to zoom)"
+        />
+      </div>
+
+      <!-- Lightbox -->
+      <div class="imgLightbox" id="imgLightbox" aria-hidden="true">
+        <div class="imgLightboxTop">
+          <div class="imgLightboxTitle">Carbon Footprint — Data Sheet</div>
+          <div class="imgLightboxControls">
+            <button type="button" class="imgBtn" id="zoomOut">−</button>
+            <button type="button" class="imgBtn" id="zoomIn">+</button>
+            <button type="button" class="imgBtn" id="zoomReset">Reset</button>
+            <button type="button" class="imgBtn imgBtnClose" id="imgClose">Close ✕</button>
+          </div>
+        </div>
+
+        <div class="imgStage" id="imgStage">
+          <img
+            id="sheetFull"
+            src="images/carbon-sheet.png"
+            alt="Carbon footprint spreadsheet screenshot (zoomable)"
+            draggable="false"
+          />
+        </div>
+      </div>
+
+
+
+    <section id="plan" class="block plan">
+      <h2>Plan</h2>
+      <p>Replace this text with your plan content.</p>
+    </section>
+
+  </main>
+
+  <!-- Charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script defer src="collegeapartments.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!-- sustainabilityhouse.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sustainability House</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero" style="--hero: url('images/sustainability.jpg');">
+    <div class="hero-title">Sustainability House</div>
+  </header>
+
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a class="home-btn" href="index.html">← Home</a>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a href="#solar">Solar Panel</a>
+        <a href="#carbon">Carbon Footprint</a>
+        <a href="#plan">Plan</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section id="solar" class="block">
+      <h2>Solar Panel</h2>
+      <h3 class="section-subtitle">Production</h3>
+      <div
+        id="solar-dashboard"
+        data-base="data/"
+        data-map='{
+          "months":"int5.csv",
+          "weeks":"int4.csv",
+          "days":"int3.csv",
+          "hours":"int2.csv",
+          "minutes":"int1.csv"
+        }'
+      ></div>
+      <h3 class="section-subtitle" style="margin-top:18px;">Comparison</h3>
+      <div id="solar-compare"></div>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script src="solar-dashboard.js"></script>
+      <script src="solar-compare.js"></script>
+    </section>
+
+    <section id="carbon" class="block">
+      <h2>Carbon Footprint</h2>
+      <div id="carbon-panels"></div>
+
+    <script src="carbon-panels.js"></script>
+    </section>
+
+    <section id="plan" class="block plan">
+      <h2>Plan</h2>
+      <p>Replace this text with your content.</p>
+    </section>
+  </main>
+</body>
+</html>
