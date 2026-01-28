@@ -2326,3 +2326,303 @@ iframe { display: block; }
   outline: 3px solid rgba(59,130,246,.55);
   outline-offset: 2px;
 }
+
+
+
+
+/* ===== Plans Modal (does not affect your existing tiles) ===== */
+body.modal-open {
+  overflow: hidden;
+  touch-action: none;
+}
+
+.center-badge { cursor: pointer; }
+.center-badge:focus { outline: 2px solid rgba(255,255,255,0.7); outline-offset: 6px; }
+
+.project-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+}
+
+.project-modal[hidden] { display: none; }
+
+.project-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(8px);
+}
+
+.project-modal__panel {
+  position: relative;
+  width: min(980px, 94vw);
+  height: min(92dvh, 92vh);
+  margin: 4dvh auto;
+  border-radius: 22px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.92);
+
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+.project-modal__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.project-modal__top h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.project-modal__close {
+  border: 0;
+  background: transparent;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 12px;
+}
+
+.project-modal__body {
+  padding: 14px 16px 18px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  height: calc(100% - 56px);
+}
+
+.project-modal__lead { margin: 0 0 12px; opacity: 0.9; }
+
+.plan-grid { display: grid; gap: 10px; margin: 12px 0 16px; }
+
+.plan-card {
+  background: rgba(0,0,0,0.04);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 16px;
+  padding: 10px 12px;
+}
+
+.plan-card summary { cursor: pointer; font-weight: 700; padding: 6px 2px; }
+.plan-card ul { margin: 8px 0 6px 18px; }
+
+.small-note { margin: 6px 0 0; font-size: 13px; opacity: 0.85; }
+.pdf-title { margin: 10px 0 6px; }
+
+.pdf-frame {
+  width: 100%;
+  height: clamp(420px, 60dvh, 900px);
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 16px;
+  background: white;
+}
+
+.pdf-actions { margin-top: 10px; display: flex; justify-content: flex-end; }
+
+.pdf-link {
+  display: inline-block;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,0.14);
+  text-decoration: none;
+}
+
+@media (max-width: 640px) {
+  .project-modal__panel {
+    width: 100vw;
+    height: 100dvh;
+    margin: 0;
+    border-radius: 0;
+  }
+  .pdf-frame { height: 62dvh; border-radius: 14px; }
+}
+
+
+
+
+
+
+/* ===== Clickable badge without blocking tile clicks ===== */
+.center-badge { pointer-events: none; }            /* keep overlay non-blocking */
+.badgeLink { pointer-events: auto; display: inline-block; text-decoration: none; color: inherit; }
+
+.badgeLink .badge{
+  transition: transform .18s ease, box-shadow .2s ease, filter .2s ease;
+  transform: translateZ(0);
+}
+.badgeLink:hover .badge,
+.badgeLink:focus-visible .badge{
+  transform: scale(1.06);
+  box-shadow: 0 22px 70px rgba(0,0,0,.18);
+  filter: brightness(1.03);
+}
+.badgeLink:active .badge{ transform: scale(.99); }
+
+.badgeLink:focus-visible{
+  outline: 3px solid rgba(59,130,246,.55);
+  outline-offset: 6px;
+  border-radius: 18px;
+}
+
+/* ===== Plans section (matches your light glass theme) ===== */
+#plans{ scroll-margin-top: 18px; }
+
+.plansWrap{
+  padding: 74px 0 80px;
+  border-top: 1px solid var(--stroke);
+  background:
+    radial-gradient(900px 600px at 15% 5%, rgba(56, 189, 113, .12), transparent 60%),
+    radial-gradient(900px 600px at 85% 10%, rgba(59, 130, 246, .10), transparent 55%),
+    radial-gradient(900px 600px at 50% 100%, rgba(234, 88, 12, .08), transparent 55%),
+    var(--paper);
+}
+
+.plansInner{
+  width: min(960px, 92vw);
+  margin: 0 auto;
+  display: grid;
+  gap: 16px;
+}
+
+.plansHero{
+  padding: 18px;
+  border-radius: var(--radius);
+  background: rgba(255,255,255,.90);
+  border: 1px solid var(--stroke);
+  box-shadow: 0 12px 28px rgba(0,0,0,.08);
+}
+
+.plansKicker{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+.plansPill{
+  display:inline-flex;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: .3px;
+  border: 1px solid rgba(0,0,0,.10);
+  background: rgba(255,255,255,.92);
+}
+.plansPillSoft{
+  background: linear-gradient(135deg, rgba(56,189,113,.12), rgba(59,130,246,.12));
+  border-color: rgba(59,130,246,.18);
+}
+
+.plansTitle{
+  margin: 10px 0 6px;
+  font-size: clamp(26px, 3.2vw, 40px);
+  letter-spacing: .2px;
+}
+.plansSub{
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+  font-size: 14.5px;
+}
+
+.plansActions{
+  margin-top: 12px;
+  display:flex;
+  gap: 10px;
+  flex-wrap:wrap;
+}
+
+/* cards */
+.plansGrid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.plansCard{
+  background: rgba(255,255,255,.92);
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 28px rgba(0,0,0,.08);
+  padding: 18px;
+}
+
+.plansWide{ grid-column: 1 / -1; }
+
+.plansCardHead{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap: 10px;
+  flex-wrap:wrap;
+  margin-bottom: 10px;
+}
+
+.plansCard h2{
+  margin: 0;
+  font-size: 18px;
+  letter-spacing: .2px;
+}
+
+.plansTag{
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 12px;
+  border: 1px solid rgba(0,0,0,.10);
+  background: rgba(255,255,255,.92);
+  color: rgba(15,27,20,.82);
+}
+.plansTagGreen{ background: rgba(56,189,113,.12); border-color: rgba(56,189,113,.26); }
+.plansTagBlue{ background: rgba(59,130,246,.12); border-color: rgba(59,130,246,.26); }
+.plansTagOrange{ background: rgba(234,88,12,.10); border-color: rgba(234,88,12,.22); }
+
+.plansList{
+  margin: 10px 0 0 18px;
+  color: rgba(15,27,20,.80);
+  line-height: 1.65;
+  font-size: 14.5px;
+}
+
+.plansMiniGrid{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.plansMini{
+  background: rgba(15,27,20,.03);
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 18px;
+  padding: 12px;
+}
+.plansMini .k{
+  font-size: 12px;
+  font-weight: 900;
+  color: rgba(15,27,20,.62);
+}
+.plansMini .v{
+  margin-top: 6px;
+  font-weight: 900;
+  color: rgba(15,27,20,.84);
+}
+
+.plansFootLinks{
+  margin-top: 12px;
+  display:flex;
+  justify-content:flex-end;
+  flex-wrap:wrap;
+  gap: 10px;
+}
+
+/* responsive */
+@media (max-width: 920px){
+  .plansGrid{ grid-template-columns: 1fr; }
+  .plansMiniGrid{ grid-template-columns: 1fr; }
+}
+

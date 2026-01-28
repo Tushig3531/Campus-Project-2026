@@ -6,23 +6,16 @@
   <title>Campus Project 2026</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body id="top">
   <main class="split">
-
-    <a class="tile" href="sustainabilityhouse.html">
-      <img class="tile-bg" src="/images/sustainability1.jpg" alt="" aria-hidden="true">
-      <div class="tile-overlay" aria-hidden="true"></div>
-
+    <a class="tile" href="sustainabilityhouse.html" style="--img: url('/images/sustainability1.jpg');">
       <div class="tile-label">
         <span class="tile-title">Sustainability House</span>
         <span class="tile-sub">Explore solar, footprint, plan</span>
       </div>
     </a>
 
-    <a class="tile" href="collegeapartment.html">
-      <img class="tile-bg" src="/images/apartment1.jpg" alt="" aria-hidden="true">
-      <div class="tile-overlay" aria-hidden="true"></div>
-
+    <a class="tile" href="collegeapartment.html" style="--img: url('/images/apartment1.jpg');">
       <div class="tile-label">
         <span class="tile-title">College Apartments</span>
         <span class="tile-sub">Explore footprint, plan</span>
@@ -38,5 +31,59 @@
 
     <div class="divider" aria-hidden="true"></div>
   </main>
+
+<section id="plans" class="plansWrap">
+  <div class="plansInner">
+      <h1 class="plansTitle">Plans & Budget</h1>
+    </header>
+
+    <div class="plansGrid">
+      <article class="plansCard">
+        <div class="plansCardHead">
+          <h2>Sustainability House</h2>
+
+        </div>
+        <ul class="plansList">
+          <li><b>Phase 1:</b> Electrify space heating + panel work — <b>$17k–$24k</b></li>
+          <li><b>Phase 2:</b> Up to <b>10 kW solar</b> — <b>$23k</b></li>
+          <li><b>Phase 3:</b> Heat pump water heater + disconnect gas — <b>$3k</b></li>
+        </ul>
+      </article>
+
+      <article class="plansCard">
+        <div class="plansCardHead">
+          <h2>College Apartments</h2>
+        </div>
+        <ul class="plansList">
+          <li><b>Phase 1:</b> LEDs + A/C covers — <b>$3k</b></li>
+          <li><b>Phase 2:</b> Joint metering — <b>$20k</b></li>
+          <li><b>Phase 3:</b> Full electrification + solar — <b>$180k+</b></li>
+        </ul>
+      </article>
+
+    </div>
+
+    <article class="plansCard">
+      <div class="plansCardHead">
+        <h2>Presentation (PDF)</h2>
+      </div>
+
+      <iframe class="pdfEmbed"
+        src="/slides/Campus-Energy-Presentation.pdf#view=FitH"
+        title="Campus Energy Presentation PDF"
+        loading="lazy"></iframe>
+
+      <div class="plansFootLinks">
+        <a class="slideBtn" href="/slides/Campus-Energy-Presentation.pdf" target="_blank" rel="noopener">
+          Open full-screen (Mobile)
+        </a>
+      </div>
+    </article>
+  </div>
+</section>
+
+
+
+
 </body>
 </html>
