@@ -2105,28 +2105,24 @@ html{ scroll-behavior: smooth; }
 
 
 
-/* ===== Phone: Sustainability label on top, badge centered, no white borders ===== */
-@media (max-width: 860px){
 
-  /* stack tiles */
+@media (max-width: 860px){
   .split{
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
   }
 
-  /* keep Campus Project centered (default) */
   .center-badge{
     inset: 0;
     place-items: center;
   }
 
-  /* remove white borders (label + badge) */
+
   .tile-label{ border: 0 !important; }
   .badge{ border: 0 !important; }
 
   
 
-  /* === Move ONLY the first tile label (Sustainability) to the top === */
   .split > a.tile:first-of-type .tile-label{
     top: calc(14px + env(safe-area-inset-top));
     bottom: auto;
@@ -2136,7 +2132,7 @@ html{ scroll-behavior: smooth; }
     border-radius: 18px;
   }
 
-  /* keep second tile label near bottom */
+
   .split > a.tile:nth-of-type(2) .tile-label{
     bottom: calc(14px + env(safe-area-inset-bottom));
     left: 12px;
@@ -2146,7 +2142,6 @@ html{ scroll-behavior: smooth; }
   }
 }
 @media (max-width: 860px){
-  /* stack tiles */
   .split{
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
@@ -2330,7 +2325,6 @@ iframe { display: block; }
 
 
 
-/* ===== Plans Modal (does not affect your existing tiles) ===== */
 body.modal-open {
   overflow: hidden;
   touch-action: none;
@@ -2449,10 +2443,7 @@ body.modal-open {
 
 
 
-
-
-/* ===== Clickable badge without blocking tile clicks ===== */
-.center-badge { pointer-events: none; }            /* keep overlay non-blocking */
+.center-badge { pointer-events: none; }            
 .badgeLink { pointer-events: auto; display: inline-block; text-decoration: none; color: inherit; }
 
 .badgeLink .badge{
@@ -2473,7 +2464,7 @@ body.modal-open {
   border-radius: 18px;
 }
 
-/* ===== Plans section (matches your light glass theme) ===== */
+
 #plans{ scroll-margin-top: 18px; }
 
 .plansWrap{
@@ -2536,7 +2527,7 @@ body.modal-open {
   flex-wrap:wrap;
 }
 
-/* cards */
+
 .plansGrid{
   display:grid;
   grid-template-columns: 1fr 1fr;
@@ -2620,9 +2611,49 @@ body.modal-open {
   gap: 10px;
 }
 
-/* responsive */
+
 @media (max-width: 920px){
   .plansGrid{ grid-template-columns: 1fr; }
   .plansMiniGrid{ grid-template-columns: 1fr; }
 }
+
+
+.center-badge{
+  pointer-events: none;
+}
+
+.badgeLink{
+  pointer-events: auto;
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.badgeLink .badge{
+  transition: transform .18s ease, box-shadow .2s ease, filter .2s ease;
+}
+.badgeLink:hover .badge,
+.badgeLink:focus-visible .badge{
+  transform: scale(1.06);
+  filter: brightness(1.03);
+  box-shadow: 0 22px 70px rgba(0,0,0,.18);
+}
+.badgeLink:focus-visible{
+  outline: 3px solid rgba(59,130,246,.55);
+  outline-offset: 6px;
+  border-radius: 18px;
+}
+
+
+@media (max-width: 860px){
+  .center-badge{
+    position: absolute !important;
+    inset: 0 !important;
+    display: grid !important;
+    place-items: center !important;
+    z-index: 999 !important;
+    pointer-events: none !important;
+  }
+}
+
 
